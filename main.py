@@ -1,5 +1,9 @@
+import copy
+
+
 def solve(board):
     empties = []
+    in_board = copy.deepcopy(board)
     for i in range(9):
         for j in range(9):
             if board[i][j] == 0:
@@ -9,7 +13,6 @@ def solve(board):
     for i in range(len(empties)):
         possibilities.append([1, 2, 3, 4, 5, 6, 7, 8, 9])
     while current_el < len(empties):
-        print()
         if not check(board, empties[current_el], possibilities[current_el][0]):
             if len(possibilities[current_el]) > 1:
                 possibilities[current_el].pop(0)
@@ -22,8 +25,25 @@ def solve(board):
         else:
             board[empties[current_el][0]][empties[current_el][1]] = possibilities[current_el][0]
             current_el += 1
-        for i in range(9):
-            print(board[i])
+    print("Input board:")
+    for i in range(9):
+        for j in range(9):
+            print(in_board[i][j], end=" ")
+            if j == 2 or j == 5:
+                print("|", end=" ")
+        print()
+        if i == 2 or i == 5:
+            print("---------------------")
+    print()
+    print("Solved board:")
+    for i in range(9):
+        for j in range(9):
+            print(board[i][j], end=" ")
+            if j == 2 or j == 5:
+                print("|", end=" ")
+        print()
+        if i == 2 or i == 5:
+            print("---------------------")
 
 
 def check(board, pos, val):
