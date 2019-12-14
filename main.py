@@ -2,6 +2,7 @@ import copy
 
 
 def solve(board):
+    solvable = True
     empties = []
     in_board = copy.deepcopy(board)
     for i in range(9):
@@ -25,25 +26,29 @@ def solve(board):
         else:
             board[empties[current_el][0]][empties[current_el][1]] = possibilities[current_el][0]
             current_el += 1
-    print("Input board:")
-    for i in range(9):
-        for j in range(9):
-            print(in_board[i][j], end=" ")
-            if j == 2 or j == 5:
-                print("|", end=" ")
+        if len(possibilities[0]) == 0:
+            solvable = False
+            print("Unsolvable board!")
+    if solvable:
+        print("Input board:")
+        for i in range(9):
+            for j in range(9):
+                print(in_board[i][j], end=" ")
+                if j == 2 or j == 5:
+                    print("|", end=" ")
+            print()
+            if i == 2 or i == 5:
+                print("---------------------")
         print()
-        if i == 2 or i == 5:
-            print("---------------------")
-    print()
-    print("Solved board:")
-    for i in range(9):
-        for j in range(9):
-            print(board[i][j], end=" ")
-            if j == 2 or j == 5:
-                print("|", end=" ")
-        print()
-        if i == 2 or i == 5:
-            print("---------------------")
+        print("Solved board:")
+        for i in range(9):
+            for j in range(9):
+                print(board[i][j], end=" ")
+                if j == 2 or j == 5:
+                    print("|", end=" ")
+            print()
+            if i == 2 or i == 5:
+                print("---------------------")
 
 
 def check(board, pos, val):
@@ -64,7 +69,7 @@ def check(board, pos, val):
     return True
 
 
-b = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
+b1 = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
      [6, 0, 0, 1, 9, 5, 0, 0, 0],
      [0, 9, 8, 0, 0, 0, 0, 6, 0],
      [8, 0, 0, 0, 6, 0, 0, 0, 3],
@@ -74,5 +79,15 @@ b = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
      [0, 0, 0, 4, 1, 9, 0, 0, 5],
      [0, 0, 0, 0, 8, 0, 0, 7, 9]]
 
+b2 = [[0, 0, 0, 7, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 4, 3, 0, 2, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 6],
+      [0, 0, 0, 5, 0, 9, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 4, 1, 8],
+      [0, 0, 0, 0, 8, 1, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0, 5, 0],
+      [0, 4, 0, 0, 0, 0, 3, 0, 0]]
+
 if __name__ == "__main__":
-    solve(b)
+    solve(b2)
