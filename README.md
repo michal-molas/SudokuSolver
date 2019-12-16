@@ -4,7 +4,7 @@ This is a sudoku solver made in python, using backtracking algorithm.
 Contains console version (quicker) in the file main.py 
 as well as visualised one (slower, but better looking and more interactive) in the file gui.py
 
-## VISUALIZED VERSION:
+## VISUALISED VERSION:
 
 **How to use:**
 - install pygame
