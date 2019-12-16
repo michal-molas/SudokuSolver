@@ -76,7 +76,7 @@ def check_board(board, correct):
         for v in vals.values():
             if v > 1:
                 correct.append(False)
-                print("Incorrect board!")
+                print("Incorrect board :(")
                 return
     for y in range(3):
         for x in range(3):
