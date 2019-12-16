@@ -7,6 +7,7 @@ as well as visualised one (slower, but better looking and more interactive) in t
 ## VISUALIZED VERSION:
 
 **How to use:**
+- install pygame
 - use function run() from file gui.py
 
 **Controls:**
