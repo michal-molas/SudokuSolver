@@ -39,6 +39,7 @@ def run():
                 running = False
         update(board, started, events, picked, current_slot, empties, current_el, possibilities, solved, correct)
         draw(win, board, picked, font, started, current_slot)
+    pygame.quit()
 
 
 def check_slot(board, pos, val):
