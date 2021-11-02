@@ -8,7 +8,8 @@ as well as visualised one (slower, but better looking and more interactive) in t
 
 **How to use:**
 - install pygame
-- use function run() from file gui.py
+- create Solver object
+- use function run() on that object 
 
 **Controls:**
 - LEFT MOUSE BUTTON to choose a slot (will turn grey)
