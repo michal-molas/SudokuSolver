@@ -2,11 +2,11 @@ from Board import *
 
 
 class Solver:
-    def __init__(self):
+    def __init__(self, board=None):
         self.started = False
         self.solved = False
         self.correct = False
-        self.board = Board()
+        self.board = Board(board)
 
         self.num_keys = {
             pygame.K_1: 1,
@@ -37,7 +37,7 @@ class Solver:
         self.picked = [-1, -1]
 
         self.current_slot = [0, 0]
-        self.current_el = [0]
+        self.current_el = 0
         self.empties = []
         self.possibilities = []
 
@@ -53,7 +53,7 @@ class Solver:
 
         running = True
         while running:
-            clock.tick(120)
+            #clock.tick(120)
             self.events = pygame.event.get()
             for event in self.events:
                 if event.type == pygame.QUIT:
@@ -71,9 +71,9 @@ class Solver:
                     return False
                 self.set_empties()
                 self.set_possibilities()
-                if self.current_el[0] < len(self.empties):
-                    self.current_slot[1] = self.empties[self.current_el[0]][0]
-                    self.current_slot[0] = self.empties[self.current_el[0]][1]
+                if self.current_el < len(self.empties):
+                    self.current_slot[1] = self.empties[self.current_el][0]
+                    self.current_slot[0] = self.empties[self.current_el][1]
                     self.solve_step()
             else:
                 self.set_picked()
@@ -191,21 +191,22 @@ class Solver:
                 self.possibilities.append([n + 1 for n in range(9)])
 
     def solve_step(self):
-        pos = self.empties[self.current_el[0]]
-        val = self.possibilities[self.current_el[0]][0]
+        pos = self.empties[self.current_el]
+        val = self.possibilities[self.current_el][0]
         if not self.board.check_slot(pos, val):
-            if len(self.possibilities[self.current_el[0]]) > 1:
-                self.possibilities[self.current_el[0]].pop(0)
+            if len(self.possibilities[self.current_el]) > 1:
+                self.possibilities[self.current_el].pop(0)
             else:
-                while len(self.possibilities[self.current_el[0]]) == 1:
-                    self.board.board[pos[0]][pos[1]] = 0
-                    self.possibilities[self.current_el[0]] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                    self.current_el[0] -= 1
-                self.possibilities[self.current_el[0]].pop(0)
+                while len(self.possibilities[self.current_el]) == 1:
+                    curr_pos = self.empties[self.current_el]
+                    self.board.board[curr_pos[0]][curr_pos[1]] = 0
+                    self.possibilities[self.current_el] = [n + 1 for n in range(9)]
+                    self.current_el -= 1
+                self.possibilities[self.current_el].pop(0)
         else:
             self.board.board[pos[0]][pos[1]] = val
-            self.current_el[0] += 1
-            if self.current_el[0] == len(self.empties):
+            self.current_el += 1
+            if self.current_el == len(self.empties):
                 self.current_slot[1] = -1
                 self.current_slot[0] = -1
                 self.solved = True
